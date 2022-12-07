@@ -1,0 +1,108 @@
+1.admin table
+create table AAdmin(
+                 ademail varchar(20) NOT NULL,
+                 adpassword varchar(20) NOT NULL,
+                 adminforgotpassword varchar(20) NOT NULL,
+                 cus_id int,
+                 coID int
+                 CONSTRAINT FOREIGN KEY(cus_id) REFERENCES Register_Details(cus_id),
+                 CONSTRAINT FOREIGN KEY(coID) REFERENCES Coupones (coID),
+                 
+                 
+
+
+2.registercustomer
+
+create table Register_Detailses(
+                      Cus_id int PRIMARY KEY, 
+
+                       CName varchar(32) NOT NULL,
+
+                       Contacts int NOT NULL, 
+          
+                       mail_id varchar(100) NOT NULL UNIQUE,
+ 
+                       password varchar(20)NOT NULL UNIQUE
+);
+
+
+3.login_customer
+create table Login_detailses6(
+                    mail_id varchar(100) NOT NULL,
+                    password varchar(20)NOT NULL,
+                    CONSTRAINT Register_Details UNIQUE(mail_id,password),
+                    Cus_id int ,
+                    CONSTRAINT FOREIGN KEY(Cus_id) REFERENCES Register_Details(Cus_id)
+);
+
+
+4.cardetails
+
+create table car_detailses(
+
+              car_type varchar(20) NOT NULL,
+              no_of_seats int NOT NULL,
+ 
+              priceperkm int NOT NULL,
+
+              car_model varchar(20) NOT NULL
+
+              );
+
+ 5.coupons   
+create table Coupones
+             (
+
+              coID int PRIMARY KEY ,
+              Co_name varchar(20) NOT NULL,
+              cupon_start int  NOT NULL,
+              coupon_date int NOT NULL,
+              Max_Discount int NOT NULL
+
+             ); 
+
+6.event table
+create table event(
+               event_name varchar(20) NOT NULL,
+               discount int NOT NULL,
+               coID int, 
+               CONSTRAINT FOREIGN KEY( coID) REFERENCES Coupones( coID)
+
+);
+
+7.cart_table
+create table cart(
+             cart_id int PRIMARY KEY,
+             price int NOT NULL,
+             no_of_cars int NOT NULL,
+             coID int, 
+             CONSTRAINT FOREIGN KEY( coID) REFERENCES Coupones( coID)
+     
+);
+
+
+ 8.BOOKING_details
+
+create table booking_detailS(
+                        Book_id int PRIMARY KEY,
+                       Amount int NOT NULL,
+                       Booking_status varchar(20) NOT NULL,
+		       CoId int,
+                       Bdate DATE NOT NULL,
+                       advance_deposit int NOT NULL,
+                       cus_id int,
+                       CONSTRAINT FOREIGN KEY(cus_id) REFERENCES Register_Details(cus_id),
+                       CONSTRAINT FOREIGN KEY(CoID) REFERENCES Coupones(CoID)
+);   
+9.payment_details
+create table payment( 
+       
+                 CName varchar(32) NOT NULL,
+                 transaction_id int NOT NULL,
+                 CVV int unique NOT Null,
+                 Total_bill int NOT NULL,
+                 Book_id int,
+                 CONSTRAINT FOREIGN KEY(Book_id ) REFERENCES booking_detailS(Book_id),
+                            
+);          
+                 
